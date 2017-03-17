@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<style>
+	
+	#circle1 {
+		z-index: 1;
+		position: 
+		absolute;
+		width: 10px;
+		height: 10px;
+		top: 90px; 
+		left: 50px; 
+		background: white;
+		-moz-border-radius: 50px;
+		-webkit-border-radius: 50px;
+		border-radius: 50px;
+	}
+	#circle2 {
+		z-index: 1;
+		position: 
+		absolute;
+		width: 10px;
+		height: 10px;
+		top: 350px; 
+		left: 300px;
+		background: white;
+		-moz-border-radius: 50px;
+		-webkit-border-radius: 50px;
+		border-radius: 50px;
+	}
+
+</style>
+</head>
+
+<body> 
+	<h1 style="position:absolute; left: 380px; top: 0px;" size = "15">HW1</h1>
+	<a href="https://jsfiddle.net/HankLo/1paa46wp/9/" style="position:absolute; left: 380px; top: 50px;" size = "15">jsfiddle</a>
+	<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlzXj4szBaeGpR7uARlBBzAx0kIsKdTIESzBtaV434tM1Rmf5tjQ"  width="350px" height="500px"> 
+	<div id="circle1"></div>
+	<div id="circle2"></div>
+	<button id ='aaButton' style="position:absolute; left: 100px; top: 508px;" >
+	  <font color="red" size="10"><i>Power</i></font>
+	</button>
+<script src='http://code.jquery.com/jquery-2.1.4.min.js'></script>
+<script>
+	function Light() {
+	  var status1 = false;
+	  var status2 = false;
+	  
+	  function toggleLight1() {
+	    status1 = !status1;
+	    if (status1 === true)
+	    	document.getElementById("circle1").style.background = "hsl(0, 100%, 50%)";
+	    else
+	    	document.getElementById("circle1").style.background = "hsl(100, 100%, 100%)";
+	  }
+	  
+	  function toggleLight2() {
+	    status2 = !status2;
+	    if (status2 === true)
+	    	document.getElementById("circle2").style.background = "hsl(105, 100%, 50%)";
+	    else
+	    	document.getElementById("circle2").style.background = "hsl(100, 100%, 100%)";
+	  }
+	  
+	  var timer1;
+	  var timer2;
+	  var power = false;
+	  this.toggleBlink = function() {
+	  	power = !power;
+	    if (power === true) {
+	  		timer1 = setInterval (toggleLight1, 300);
+	      timer2 = setInterval (toggleLight2, 800);
+	    } else {
+	  		clearInterval (timer1);
+	      clearInterval (timer2);
+	      document.getElementById("circle1").style.background = "hsl(100, 100%, 100%)";
+	      document.getElementById("circle2").style.background = "hsl(100, 100%, 100%)";
+	    }
+	  }
+	}
+
+	var circle1 = new Light();
+	var circle2 = new Light();
+
+	$('#aaButton').click ( 
+		function() {
+			circle1.toggleBlink();
+	    	circle2.toggleBlink();
+	    } 
+	);
+
+</script>
+</body>
+
+</html>

@@ -45,6 +45,7 @@
 	  <font color="red" size="10"><i>Power</i></font>
 	</button>
 <script src='http://code.jquery.com/jquery-2.1.4.min.js'></script>
+<script type="text/javascript" src="/Scripts/jquery-1.4.1.min.js"></script>
 <script>
 	function Light() {
 	  var status1 = false;
@@ -86,7 +87,7 @@
 	var circle1 = new Light();
 	var circle2 = new Light();
 
-	$("#aaButton").click ( 
+	$('#aaButton').click ( 
 		function() {
 			circle1.toggleBlink();
 	    	circle2.toggleBlink();

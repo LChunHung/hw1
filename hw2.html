@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<style>
+#info {
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+  color: #ffff00
+}
+
+body {
+  overflow: hidden;
+}
+</style>
+</head>
+
+<body> 
+<div id="info">
+  <a href="indoor2d.jpg">2D image</a>
+  <p id = 'v1'>View1</p>
+  <p id = 'v2'>View2</p>
+</div>
+<script src='https://code.jquery.com/jquery-2.1.4.min.js'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r78/three.min.js"></script>
+<script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
+<script src="https://jyunming-chen.github.io/tutsplus/js/KeyboardState.js"></script>
+<script>
+$('#v1').click(
+  function() {
+    camera.position.set(80, 150, 80);
+    camera.lookAt(new THREE.Vector3(0, 0, 0));
+  }
+);
+
+$('#v2').click(
+  function() {
+    camera.position.set(80, 100, -80);
+    camera.lookAt(new THREE.Vector3(0, 0, 0));
+  }
+);
+
+var camera, scene, renderer, mesh, light, controls;
+var keyboard = new KeyboardState();
+var turn = true;
+var angle = 0;
+
+init();
+animate();
+
+function init() {
+  scene = new THREE.Scene();
+
+  camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 1000);
+  camera.position.z = 300;
+  scene.add(camera);
+
+  light = new THREE.PointLight(0xffffff);
+  light.position.set(100, 300, 100);
+  scene.add(light);
+  
+  light1 = new THREE.PointLight(0xffffff);
+  light1.position.set(-100, 300, -100);
+  scene.add(light1);
+  
+ /* light2 = new THREE.PointLight(0xffffff);
+  light2.position.set(0, 100, -40);
+  scene.add(light2);*/
+
+  var gridXZ = new THREE.GridHelper(100, 10, 'red', 'white');
+  scene.add(gridXZ);
+
+  renderer = new THREE.WebGLRenderer();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setClearColor(0x888888);
+
+  controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+  document.body.appendChild(renderer.domElement);
+  ////////////////////////////////////////////////////////////////////////
+
+  var geometry = new THREE.BoxGeometry(91, 30, 1.5);
+  var material = new THREE.MeshLambertMaterial();
+  wall = new THREE.Mesh(geometry, material);
+  wall.position.set(0, 15, 45.5);
+  scene.add(wall);
+  var wall1 = wall.clone();
+  wall1.position.set(0, 15, -45,5);
+  scene.add(wall1);
+	
+  var geometry1 = new THREE.BoxGeometry(1.5, 30, 91);
+  var material1 = new THREE.MeshLambertMaterial();
+  wall2 = new THREE.Mesh(geometry1, material1);
+  wall2.position.set(-44.75, 15, 0);
+  scene.add(wall2);
+  
+  var geometry2 = new THREE.BoxGeometry(1.5, 30, 80);
+  var material2 = new THREE.MeshLambertMaterial();
+  wall3 = new THREE.Mesh(geometry2, material2);
+  wall3.position.set(44.75, 15, 5.5);
+  scene.add(wall3);
+  
+  var ge1 = new THREE.BoxGeometry(1.5, 10, 10);
+  var ma1 = new THREE.MeshLambertMaterial();
+  gm1 = new THREE.Mesh(ge1, ma1);
+  gm1.position.set(44.75, 25, -39.5);
+  scene.add(gm1);
+  
+  var geo1 = new THREE.BoxGeometry(1.5, 30, 41);
+  var mat1 = new THREE.MeshLambertMaterial();
+  partition1 = new  THREE.Mesh(geo1, mat1);
+  partition1.position.set(9.75, 15, 24.75);
+  scene.add(partition1);
+  
+  var geo2 = new THREE.BoxGeometry(1.5, 30, 30);
+  var mat2 = new THREE.MeshLambertMaterial();
+  partition2 = new  THREE.Mesh(geo2, mat2);
+  partition2.position.set(-14.75, 15, 30);
+  scene.add(partition2);
+  
+  var geo3 = new THREE.BoxGeometry(12, 30, 1.5);
+  var mat3 = new THREE.MeshLambertMaterial();
+  partition3 = new  THREE.Mesh(geo3, mat3);
+  partition3.position.set(-9.5, 15, 15.75);
+  scene.add(partition3);
+  
+  var geo4 = new THREE.BoxGeometry(1.5, 30, 11);
+  var mat4 = new THREE.MeshLambertMaterial();
+  partition4 = new  THREE.Mesh(geo4, mat4);
+  partition4.position.set(-4.25, 15, 9.75);
+  scene.add(partition4);
+  
+  var geo5 = new THREE.BoxGeometry(30, 30, 1.5);
+  var mat5 = new THREE.MeshLambertMaterial();
+  partition5 = new  THREE.Mesh(geo5, mat5);
+  partition5.position.set(-29.75, 15, 5);
+  scene.add(partition5);
+  
+  var ge2 = new THREE.BoxGeometry(25.5, 10, 1.5);
+  var ma2 = new THREE.MeshLambertMaterial();
+  gm2 = new  THREE.Mesh(ge2, ma2);
+  gm2.position.set(-2.25, 25, 5);
+  scene.add(gm2);
+  
+  var geo6 = new THREE.BoxGeometry(40, 30, 1.5);
+  var mat6 = new THREE.MeshLambertMaterial();
+  partition6 = new  THREE.Mesh(geo6, mat6);
+  partition6.position.set(-24.75, 15, -26.25);
+  scene.add(partition6);
+  
+  var geo7 = new THREE.BoxGeometry(1.5, 30, 18);
+  var mat7 = new THREE.MeshLambertMaterial();
+  partition7 = new  THREE.Mesh(geo7, mat7);
+  partition7.position.set(-16, 15, -16.5);
+  scene.add(partition7);
+  
+  var ge3 = new THREE.BoxGeometry(1.5, 10, 13);
+  var ma3 = new THREE.MeshLambertMaterial();
+  gm3 = new  THREE.Mesh(ge3, ma3);
+  gm3.position.set(-16, 25, -1.5);
+  scene.add(gm3);
+  
+  var geo8 = new THREE.BoxGeometry(1.5, 30, 20);
+  var mat8 = new THREE.MeshLambertMaterial();
+  partition8 = new  THREE.Mesh(geo8, mat8);
+  partition8.position.set(10, 15, -35.5);
+  scene.add(partition8);
+  
+  var geo9 = new THREE.BoxGeometry(1.5, 30, 20);
+  var mat9 = new THREE.MeshLambertMaterial();
+  partition9 = new  THREE.Mesh(geo9, mat9);
+  partition9.position.set(30, 15, -35.5);
+  scene.add(partition9);
+  
+  var geo10 = new THREE.BoxGeometry(11, 30, 1.5);
+  var mat10 = new THREE.MeshLambertMaterial();
+  partition10 = new  THREE.Mesh(geo10, mat10);
+  partition10.position.set(15.5, 15, -26.25);
+  scene.add(partition10);
+  
+  var ge4 = new THREE.BoxGeometry(35, 10, 1.5);
+  var ma4 = new THREE.MeshLambertMaterial();
+  gm4 = new  THREE.Mesh(ge4, ma4);
+  gm4.position.set(12, 25, -26.25);
+  scene.add(gm4);
+
+}
+
+function animate() {
+  controls.update();
+  keyboard.update();
+
+  if (keyboard.down("Z")) turn = !turn;
+  if (turn) angle += 0.04;
+  //mesh.rotation.y = angle;
+
+  requestAnimationFrame(animate);
+  render();
+}
+
+function render() {
+  renderer.render(scene, camera);
+}
+
+// important to add this 
+// in jsfiddle!
+window.focus();
+</script>
+</body>
+
+</html>
